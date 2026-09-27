@@ -83,3 +83,21 @@ Kapag pinagsama-sama natin ang lahat sa isang totoong React application, ganito 
  * Mas malinis na Conditional Rendering: Mas mainam gamitin ang Standard if/else sa labas ng return () kapag humahaba ang logic kaysa maging magulo ang ternary operators.
 Pwede mo ring kopyahin o i-save itong kabuuang buod sa iyong GitHub notes! Ready ka na ba sa sunod nating hakbang pagkaharap mo sa PC/editor mo?
 
+
+-----------------9/27/2026---------------
+
+Master Reference Guide Review: Natapos natin ang buong buod at best practices ng JSX, Props, useState, LocalStorage, Conditional Rendering, at useEffect.
+
+useState([]) vs useState(null): Malinaw na kung bakit kailangang empty array ([]) kapag listahan ang kukunin para maiwasan ang white-screen crash at .map() error.
+
+The 3 API Stages: Naipaliwanag at naisulat mo ang conditional logic para sa:
+
+Loading Stage (loading === true)
+
+Empty/No Result Stage (users.length === 0)
+
+Success Stage (users.map(...))
+
+useEffect & Dependency Array Mechanics: Napatunayan mo kung bakit kailangang empty array ([]) lang ang ilagay para maiwasan ang infinite loop at maiwasan ang ReferenceError.
+
+Practical Application: Napatakbo mo sa local editor mo ang kumpletong Array Fetching component (UserList.jsx) na kumukuha ng totoong data mula sa JSONPlaceholder API.
