@@ -101,3 +101,18 @@ Success Stage (users.map(...))
 useEffect & Dependency Array Mechanics: Napatunayan mo kung bakit kailangang empty array ([]) lang ang ilagay para maiwasan ang infinite loop at maiwasan ang ReferenceError.
 
 Practical Application: Napatakbo mo sa local editor mo ang kumpletong Array Fetching component (UserList.jsx) na kumukuha ng totoong data mula sa JSONPlaceholder API.
+
+
+---------------------10/2/2026--------------
+
+SHORT RECAP: WHAT YOU LEARNED TODAY
+WHAT WE BUILT:
+Naka-build tayo ng Live Search & Filter sa ibabaw ng ating API User List!
+WHERE THE CODE COMES FROM:
+React: useState("") (memory ng search keyword).
+JSX / HTML: <input />, value={searchTerm}, at onChange.
+Vanilla JavaScript: .filter(), .toLowerCase(), at .includes().
+Browser Web API: fetch() (para sa initial data retrieval).
+VANILLA JS CONNECTION:
+Sa Vanilla JS, mag-a-attach ka ng addEventListener('input') at manwal na magso-swap ng innerHTML.
+Sa React, papalitan mo lang ang State (setSearchTerm), at React itself na ang bahalang mag-re-render at mag-filter ng UI!
