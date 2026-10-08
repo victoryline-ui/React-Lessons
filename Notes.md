@@ -183,3 +183,7 @@ const saveEdit = (idToUpdate) => {
     </div>
   )
 })}
+
+
+explaination about for crud
+https://chatgpt.com/share/6ac795e5-b718-83ec-9b51-3925d5a13493
