@@ -116,3 +116,70 @@ Browser Web API: fetch() (para sa initial data retrieval).
 VANILLA JS CONNECTION:
 Sa Vanilla JS, mag-a-attach ka ng addEventListener('input') at manwal na magso-swap ng innerHTML.
 Sa React, papalitan mo lang ang State (setSearchTerm), at React itself na ang bahalang mag-re-render at mag-filter ng UI!
+
+
+-----------------------10-8-2026----------------------
+
+// ─────────────────────────────────────────────────────────────
+// 1. DITO TAYO NAGMUMULA: DALAWA ANG STATE PARA SA EDIT
+// ─────────────────────────────────────────────────────────────
+const [editingId, setEditingId] = useState(null) // Taga-tanda kung SINO ang ina-edit (null = wala)
+const [editText, setEditText] = useState("")     // Taga-hawak ng TEXT na tina-type sa input box
+
+// ─────────────────────────────────────────────────────────────
+// 2. HANDLER: KAPAG PININDOT ANG "✏️ EDIT" BUTTON
+// ─────────────────────────────────────────────────────────────
+const startEditing = (user) => {
+  setEditingId(user.id)  // Ino-ON ang edit mode para sa ID na ito (halimbawa: ID #1)
+  setEditText(user.name) // Lalagyan ng lumang pangalan ("Juan") ang input box para di blanko
+}
+
+// ─────────────────────────────────────────────────────────────
+// 3. HANDLER: KAPAG PININDOT ANG "💾 SAVE" BUTTON
+// ─────────────────────────────────────────────────────────────
+const saveEdit = (idToUpdate) => {
+  // Iniikot natin ang bawat user sa array
+  const updatedUsers = users.map((user) => {
+    if (user.id === idToUpdate) {
+      // Kumuha ng kopya ng lumang user, pero PALITAN ang `name` ng bagong `editText`
+      return { ...user, name: editText }
+    }
+    // Kapag HINDI ito ang ina-edit, ibalik lang ang dating user nang walang bago
+    return user
+  })
+
+  setUsers(updatedUsers) // Ino-update ang main state ng array
+  setEditingId(null)    // BINABALIK SA NULL para MANG-OFF ang edit mode at MANG-RESET
+}
+
+// ─────────────────────────────────────────────────────────────
+// 4. JSX: ANG DECISION POINT SA SCREEN (TERNARY OPERATOR)
+// ─────────────────────────────────────────────────────────────
+{filteredUsers.map((user) => {
+  // Bawat ikot sa map(), nagtatanong tayo: "Ito ba ang user na kasalukuyang ina-edit?"
+  const isEditing = user.id === editingId
+
+  return (
+    <div key={user.id}>
+      {isEditing ? (
+        // 🟡 EDIT VIEW: Lalabas LANG kapag `isEditing === true`
+        <>
+          <input 
+            type="text" 
+            value={editText} 
+            onChange={(e) => setEditText(e.target.value)} // Ino-update si `editText` habang nagta-type
+          />
+          <button onClick={() => saveEdit(user.id)}>💾 Save</button>
+          <button onClick={() => setEditingId(null)}>❌ Cancel</button>
+        </>
+      ) : (
+        // 🔵 NORMAL VIEW: Lalabas kapag `isEditing === false` (default status)
+        <>
+          <span>{user.name}</span>
+          <button onClick={() => startEditing(user)}>✏️ Edit</button>
+          <button onClick={() => deleteTodos(user.id)}>🗑️ Delete</button>
+        </>
+      )}
+    </div>
+  )
+})}
