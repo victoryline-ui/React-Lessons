@@ -189,3 +189,246 @@ const saveEdit = (idToUpdate) => {
 
 explaination about for crud
 https://chatgpt.com/share/6ac795e5-b718-83ec-9b51-3925d5a13493
+
+
+
+
+
+/* =========================================================
+   1. STATES (useState)
+   - Ang memory box ng ating React Application.
+   ========================================================= */
+
+// Taga-hawak ng array mula sa API o database
+const [users, setUsers] = useState([])
+
+// Taga-hawak ng tina-type sa search input
+const [searchTerm, setSearchTerm] = useState("")
+
+// Taga-hawak ng input field para sa pag-add ng bagong item
+const [newName, setNewName] = useState("")
+
+// Taga-tanda kung SINO ang kasalukuyang ina-edit (null kapag wala)
+const [editingId, setEditingId] = useState(null)
+
+// Taga-hawak ng bagong text habang nag-e-edit
+const [editText, setEditText] = useState("")
+
+// Status states para sa UI feedback
+const [loading, setLoading] = useState(true)
+const [error, setError] = useState(null)
+
+
+/* =========================================================
+   2. DATA FETCHING (useEffect + fetch + async/await)
+   - Kusa at isang beses lang tumatakbo pag-load ng page.
+   ========================================================= */
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch("https://jsonplaceholder.typicode.com/users")
+      
+      if (!response.ok) {
+        throw new Error("Mali ang pag-fetch ng data!")
+      }
+
+      const data = await response.json()
+      setUsers(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  fetchData()
+}, []) // Empty dependency array [] = tumatakbo lang nang ISANG BESES
+
+
+/* =========================================================
+   3. SEARCH & FILTER PATTERN (.filter + toLowerCase + includes)
+   - Inaayos ang listahan ayon sa tina-type sa search bar.
+   ========================================================= */
+
+const filteredUsers = users.filter((user) => {
+  const maliitNaPangalan = user.name.toLowerCase()
+  const maliitNaSearch = searchTerm.toLowerCase()
+  
+  return maliitNaPangalan.includes(maliitNaSearch)
+})
+
+
+/* =========================================================
+   4. CREATE / ADD ITEM PATTERN (Spread Operator [...array, newItem])
+   - Nagpapasok ng bagong object nang hindi mino-mutate ang lumang array.
+   ========================================================= */
+
+const addUser = (e) => {
+  e.preventDefault() // Pinipigilan ang auto-refresh ng form
+  if (!newName.trim()) return // Hinaharang ang bakanteng input
+
+  const newUser = {
+    id: Date.now(), // Unique ID generator
+    name: newName
+  }
+
+  // Kinokopya ang lumang users (...users) at idinadagdag ang newUser
+  setUsers([...users, newUser])
+  setNewName("") // Nililinis ang input box pagkatapos mag-add
+}
+
+
+/* =========================================================
+   5. DELETE ITEM PATTERN (.filter + Not Equal Operator !==)
+   - Tinatapon lang ang kaparehong ID, itinitira ang iba.
+   ========================================================= */
+
+const deleteUser = (idToDelete) => {
+  setUsers(users.filter((user) => user.id !== idToDelete))
+}
+
+
+/* =========================================================
+   6. UPDATE / EDIT ITEM PATTERN (2-Step Process)
+   ========================================================= */
+
+// STEP 1: Pindutin ang "Edit" Button para mag-ON ang Edit Mode
+const startEditing = (user) => {
+  setEditingId(user.id) // Itinatabi ang ID ng napiling tao
+  setEditText(user.name) // Itinatabi ang kasalukuyang pangalan sa input
+}
+
+// STEP 2: Pindutin ang "Save" Button para palitan ang object sa array
+const saveEdit = (idToUpdate) => {
+  const updatedList = users.map((user) => {
+    if (user.id === idToUpdate) {
+      // Kinokopya ang lumang user object at pinalalitan lang ang name
+      return { ...user, name: editText }
+    }
+    return user // Kapag hindi kapareho ang ID, nananatiling pareho
+  })
+
+  setUsers(updatedList)
+  setEditingId(null) // Ibina-balik sa null para mag-OFF ang edit mode
+}
+
+// CANCEL EDIT ACTION:
+// <button onClick={() => setEditingId(null)}>❌ Cancel</button>
+
+
+/* =========================================================
+   7. CONDITIONAL RENDERING & TERNARY OPERATOR IN JSX
+   - Ang Switch Button para sa Edit View vs Normal View.
+   ========================================================= */
+
+{filteredUsers.map((user) => {
+  // Sinu-suri kung ang kasalukuyang user ang ina-edit
+  const isEditing = user.id === editingId
+
+  return (
+    <div key={user.id}>
+      {isEditing ? (
+        /* EDIT VIEW (Lalabas kapag True / isEditing === true) */
+        <>
+          <input 
+            value={editText} 
+            onChange={(e) => setEditText(e.target.value)} 
+          />
+          <button onClick={() => saveEdit(user.id)}>💾 Save</button>
+          <button onClick={() => setEditingId(null)}>❌ Cancel</button>
+        </>
+      ) : (
+        /* NORMAL VIEW (Lalabas kapag False / isEditing === false) */
+        <>
+          <span>{user.name}</span>
+          <button onClick={() => startEditing(user)}>✏️ Edit</button>
+          <button onClick={() => deleteUser(user.id)}>🗑️ Delete</button>
+        </>
+      )}
+    </div>
+  )
+})}
+
+
+
+/* =========================================================
+   1. ARRAY DESTRUCTURING & COMPONENT IMPORT/EXPORT
+   - Paano natin kinukuha ang React Tools tulad ng useState.
+   ========================================================= */
+
+// Named Import (Gamit ang curly braces {})
+import { useState, useEffect } from "react"
+
+// Default Export (Para magamit ang component sa ibang file)
+export default function UserApp() {
+  // Array Destructuring: useState returns [currentValue, setterFunction]
+  const [data, setData] = useState([])
+  return <div>App</div>
+}
+
+
+/* =========================================================
+   2. IMMUTABILITY & SPREAD OPERATOR (...)
+   - Bawal baguhin nang direkta (mutate) ang Array o Object sa React.
+   - Kailangan laging GUMAWA NG BAGO gamit ang Spread Operator.
+   ========================================================= */
+
+// BAD / MALI (Direct Mutation):
+// users.push(newUser) -> HINDI mag-re-render ang React!
+
+// GOOD / TAMA (Immutable Update):
+const newArray = [...users, newUser] // Kopya ng lumang array + bagong item
+const newObject = { ...user, name: "New Name" } // Kopya ng lumang object + bagong property
+
+
+/* =========================================================
+   3. ARROW FUNCTIONS & INLINE EVENT HANDLERS
+   - Paggamit ng ES6 Arrow Functions () => {} sa React events.
+   ========================================================= */
+
+// Kapag HINDI kailangan ng argument:
+<button onClick={handleClick}>Click Me</button>
+
+// Kapag KAILANGAN ng argument (kailangan ng arrow function wrapper):
+<button onClick={() => deleteUser(user.id)}>Delete</button>
+
+
+/* =========================================================
+   4. CONTROLLED INPUTS & EVENT OBJECT (e)
+   - Ang nagpapatakbo sa Single Source of Truth sa forms.
+   ========================================================= */
+
+// Ang 'e' ay ang Event Object na nanggagaling sa browser
+const handleInputChange = (e) => {
+  console.log(e.target.name)  // Pangalan ng input box
+  console.log(e.target.value) // Mismong tina-type ng user
+}
+
+
+/* =========================================================
+   5. KEYS IN LISTS (map + key prop)
+   - Sinisiguro nito na kilala ng React kung aling element ang nagbago,
+     naidagdag, o nabura sa DOM.
+   ========================================================= */
+
+{users.map((user) => (
+  // MAHALAGA: Ang 'key' ay dapat ilagay sa pinaka-labas na tag sa loob ng .map()
+  <div key={user.id}>
+    <p>{user.name}</p>
+  </div>
+))}
+
+
+/* =========================================================
+   6. SHORT-CIRCUIT EVALUATION (&& Operator)
+   - Mabilisang Conditional Rendering kung WALANG 'else' branch.
+   ========================================================= */
+
+// Lalabas lang ang <p> kapag TRUE si isLoading
+{isLoading && <p>Nag-lo-load pa ang data...</p>}
+
+// Lalabas lang kapag may laman ang error
+{error && <p className="error-text">{error}</p>}
+
