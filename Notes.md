@@ -432,3 +432,6 @@ const handleInputChange = (e) => {
 // Lalabas lang kapag may laman ang error
 {error && <p className="error-text">{error}</p>}
 
+
+------------------------11-1-2026--------------------
+recap lang for all 
