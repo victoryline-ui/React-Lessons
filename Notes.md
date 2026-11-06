@@ -435,3 +435,6 @@ const handleInputChange = (e) => {
 
 ------------------------11-1-2026--------------------
 recap lang for all 
+
+------------------------11-7-2026----------------
+gumawa ako ng crud pero READ palang 
