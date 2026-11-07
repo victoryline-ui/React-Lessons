@@ -438,3 +438,5 @@ recap lang for all
 
 ------------------------11-7-2026----------------
 gumawa ako ng crud pero READ palang 
+-------------------------11-8-2026------------------
+guamwa ako ng add 
