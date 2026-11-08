@@ -26,10 +26,15 @@ const Crud = () => {
       setuser([...users,nameObject])
 
       setNewname("")
+ 
      }
-   
 
-     
+ 
+    //third day to recap react lesson i add a delete function  
+     const deleteUser = (DeleteId) =>{
+         setuser(users.filter((user)=> user.id !== DeleteId))
+     }
+
   return (
     <div>
        <h2>UserList  "CRUD"</h2>
@@ -39,7 +44,8 @@ const Crud = () => {
         </form>
         <ul>      
         {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
+        <li key={user.id}>{user.name}<button onClick={() => deleteUser(user.id)}>Delete</button></li>
+        
         ))}
         </ul>
     </div>
