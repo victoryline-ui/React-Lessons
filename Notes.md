@@ -438,19 +438,29 @@ recap lang for all
 
 ------------------------11-7-2026----------------
 
------------------------11-8-2026-----------------
+-------------------------11-8-2026------------------
+guamwa ako ng add 
+-----------------------11-9-2026-----------------
 🎬 PHASE 1: Ang Pagpindot sa [EDIT] Button (Pagpasok sa Edit Mode)Unang-una mong pipindutin ang Edit button sa Normal Mode.JavaScript<button onClick={() => {
   seteditId(user.id)      // 1. Kinuha ang ID!
   seteditText(user.name)  // 2. Kinuha ang lumang pangalan!
 }}>
   Edit
 </button>
-Wala pa si saveEdit dito! Ang nangyayari pa lang: kinukuha ang user.id at itinabi sa editId state.Dahil nagbago ang editId, mag-re-render agad si React.Pumasok si React sa Ternary Operator at nakitang TRUE na (editId === user.id).Nagbago ang screen: Lumabas ang <input> (na may panimulang text via seteditText) at ang [Save] button!✏️ PHASE 2: Ang Pag-type sa Input BoxHabang nagta-type ka ng bagong pangalan:JavaScript<input 
+Wala pa si saveEdit dito! Ang nangyayari pa lang: kinukuha ang user.id at itinabi sa editId state.Dahil nagbago ang editId, mag-re-render agad si React.Pumasok si React sa Ternary Operator at nakitang TRUE na (editId === user.id).Nagbago ang screen: Lumabas ang <input> (na may panimulang text via seteditText) at ang [Save] button!✏️ 
+
+PHASE 2: Ang Pag-type sa Input BoxHabang nagta-type ka ng bagong pangalan:
+JavaScript
+<input 
   value={edittext} 
   onChange={(e) => seteditText(e.target.value)} 
 />
-Habang nagpindot ka ng mga letra sa keyboard, pinalitan ni onChange ang laman ni edittext (halimbawa, mula "Pedro" naging "Pedro Penduko").💾 PHASE 3: Ang Pagpindot sa [SAVE] Button (Dito na papasok si saveEdit!)Ngayong tapos ka na mag-type, pipindutin mo na ang Save button:JavaScript<button onClick={() => saveEdit(user.id)}>Save</button>
-DITO PA LANG PAPASOK SI saveEdit!Ipinasa ng Save button ang user.id sa saveEdit(idToUpdate).Sa loob ng saveEdit, iikot si users.map():Kapag nag-match ang user.id === idToUpdate, babaguhin ang name gamit ang binuong edittext.Pagkatapos papalitan ang listahan (setuser), itatawag ang seteditId(null).Dahil naging null na uli si editId, babalik si React sa Ternary Operator. Dahil null === user.id is FALSE, kusang mawawala ang input box at babalik sa Normal Mode (Colon :) na may bagong pangalan na!💡 SUMMARY NG DALAWANG CLICK:StepButton na PinindotAnong Function ang Tumakbo?Anong Nangyari?1st ClickEdit ButtonseteditId(user.id) at seteditText(user.name)Binuksan ang Input BoxTypeKeyboardonChange / seteditTextNagbago ang text2nd ClickSave ButtonsaveEdit(user.id)In-update ang array at pinasara ang Input Box (null)
-gumawa ako ng crud pero READ palang 
--------------------------11-8-2026------------------
-guamwa ako ng add 
+
+Habang nagpindot ka ng mga letra sa keyboard, pinalitan ni onChange ang laman ni edittext (halimbawa, mula "Pedro" naging "Pedro Penduko")
+
+.💾 PHASE 3: Ang Pagpindot sa [SAVE] Button (Dito na papasok si saveEdit!)Ngayong tapos ka na mag-type, pipindutin mo na ang Save button:JavaScript
+<button onClick={() => saveEdit(user.id)}>Save</button>
+DITO PA LANG PAPASOK SI saveEdit!Ipinasa ng Save button ang user.id sa saveEdit(idToUpdate).Sa loob ng saveEdit, iikot si users.map():Kapag nag-match ang user.id === idToUpdate, babaguhin ang name gamit ang binuong edittext.Pagkatapos papalitan ang listahan (setuser), itatawag ang seteditId(null).Dahil naging null na uli si editId, babalik si React sa Ternary Operator. Dahil null === user.id is FALSE, kusang mawawala ang input box at babalik sa Normal Mode (Colon :) na may bagong pangalan na!
+
+<img width="841" height="259" alt="image" src="https://github.com/user-attachments/assets/7f89df8c-2f07-4743-9eb3-1dd7b0fc2c81" />
+
