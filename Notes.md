@@ -470,6 +470,9 @@ DITO PA LANG PAPASOK SI saveEdit!Ipinasa ng Save button ang user.id sa saveEdit(
 <img width="627" height="699" alt="image" src="https://github.com/user-attachments/assets/14b15cdc-4004-4da7-9a9b-6a6d54d19e19" />
 <img width="612" height="356" alt="image" src="https://github.com/user-attachments/assets/861e1a6d-1a31-463e-b5e5-724673a028a8" />
 
+--------------------------------------11-12-2026-----------------------
+ongoing sa grocery list kulang nalang 
+
 
 
 
