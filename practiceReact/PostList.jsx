@@ -20,19 +20,7 @@ useEffect(() =>{
     },[])
 
 
-// 📌 Notes (11-15-2026): Paano mag-POST (magdagdag) ng data sa API
-    
-// 1. method: "POST"
-//    -> Sinasabi nito sa API/server na magdadagdag o magpapasa tayo ng bagong data (hindi lang nagbabasa).
 
-// 2. headers: { "Content-Type": "application/json" }
-//    -> Ito ang "label sa sobre" na nagsasabi sa server kung anong klase o format ng data ang ipinapasa natin (JSON format, hindi plain text o image).
-
-// 3. body: JSON.stringify({ title: newtitle, userId: 1 })
-//    -> Kino-convert nito ang JavaScript object natin papuntang JSON string format bago ipadala sa internet/API.
-
-// 4. const data = await response.json()
-//    -> Pagbalik ng sagot/resibo ng server (na naka-JSON string din), kino-convert ulit natin ito pabalik sa JavaScript object para mabasa at magamit na ng React state natin (hal. setPost([data, ...post])). 
     const addPost = async (e) =>{
     e.preventDefault();
     if(!newtitle.trim()) return;
@@ -50,6 +38,12 @@ setNewtitle("")
 
     }
 
+    const deletePost  = async (selectedId) =>{
+     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${selectedId}`, 
+        {method: "DELETE"})
+     setPost(post.filter(list => list.id !== selectedId));
+
+    }
 
 
  const filteredPosts = post.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));   
@@ -57,10 +51,23 @@ setNewtitle("")
 if(loading) return <p>Loading posts...</p>
   return (
     <div>
+         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+
+        <form onSubmit={addPost} >
+            <>
+            <input type="text" placeholder='Add List!' value={newtitle}
+            onChange={(e) => setNewtitle(e.target.value)} />
+            <button type='submit'>Add</button>
+           
+            </>
+        </form>
           
     <ul>
-        {post.map((item) => (
-            <li key={item.id}>{item.title}</li>
+        {filteredPosts.map((item) => (
+            <li key={item.id}>{item.title} {" "}
+            <button onClick={() => deletePost(item.id)}>delete</button>
+            </li>
+            
         ))}
     </ul>
 
