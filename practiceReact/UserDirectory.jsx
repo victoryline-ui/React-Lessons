@@ -4,19 +4,27 @@ import { useState,useEffect } from 'react'
 const UserDirectory = () => {
 const [users,setUser] = useState ([]);
 const [loading,setLoading] = useState(true);
+const [error, setError] = useState(null);
 const [search ,setSearch] = useState ("");
 const [newName,setNewName] = useState ("");
 const [newEmail,setNewEmail] = useState ("");
 
 useEffect (() => {
     const list = async () =>{
+      try{
       const res = await fetch ("https://jsonplaceholder.typicode.com/users?_limit=10");
-
+if (!res.ok) throw new Error("Failed to load users.");
       const data = await res.json();
       setUser(data)
-      setLoading(false)
-    }
-    list()
+      
+    }catch(err){
+setError(err.message)
+  }finally{
+    setLoading(false)
+  }
+  
+}
+ list()
 },[])
 
 const addUser = async (e) =>{
@@ -46,6 +54,7 @@ const dltUser = async (selectedId) =>{
 const filteredUsers = users.filter((user) => user.name.toLowerCase().includes(search.toLowerCase()))
 
 if(loading) return<p>Relaoding User</p>
+if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -57,7 +66,9 @@ if(loading) return<p>Relaoding User</p>
             </>
         </form>
         <input type="text" placeholder='Search Users:'  value={search} onChange={(e) => setSearch(e.target.value)}/>
- 
+        
+  {filteredUsers.length === 0 && <p>no user found</p>}
+       
      <ul>
         {filteredUsers.map((user) => (
             <li key={user.id}>{user.name} {user.email}  {" "}
