@@ -480,6 +480,9 @@ tamang review lang
 this is for Postlist.jsx 
 <img width="633" height="826" alt="image" src="https://github.com/user-attachments/assets/8c45876e-85d0-462c-8870-4e4767295301" />
 
+---------------------------------11-24-2026---------
+recap and review for new lesson
+
 
 
 
