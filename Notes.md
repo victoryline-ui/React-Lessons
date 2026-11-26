@@ -483,6 +483,16 @@ this is for Postlist.jsx
 ---------------------------------11-24-2026---------
 recap and review for new lesson
 
+-------------------------------11-26-2026---------------------
+<img width="969" height="675" alt="image" src="https://github.com/user-attachments/assets/aa70eca3-6c03-42da-8fe9-2ca2b8133190" />
+<img width="835" height="847" alt="image" src="https://github.com/user-attachments/assets/8408f112-5c29-4ccf-8e67-ffbf3a3ac71f" />
+<img width="785" height="670" alt="image" src="https://github.com/user-attachments/assets/b79a1b47-fc9e-4c98-b8f1-5d2caf17c79f" />
+<img width="730" height="523" alt="image" src="https://github.com/user-attachments/assets/165f47bc-05a3-45e5-b5a8-8e065f69495d" />
+<img width="622" height="755" alt="image" src="https://github.com/user-attachments/assets/3e67bd8c-2fa5-4c7d-8603-6be49ce6173b" />
 
 
+<img width="825" height="803" alt="image" src="https://github.com/user-attachments/assets/d74a7cb8-5e03-4bac-9548-5b1422be2ce7" />
+<img width="786" height="724" alt="image" src="https://github.com/user-attachments/assets/3b080bb9-7e5e-476c-b74a-716e6f37cab3" />
+<img width="674" height="653" alt="image" src="https://github.com/user-attachments/assets/495c63c8-e54b-4785-98bd-19fbc2427e67" />
+<img width="835" height="622" alt="image" src="https://github.com/user-attachments/assets/da9fb3e0-06a8-4f81-bc7f-3ef568d8eaab" />
 
